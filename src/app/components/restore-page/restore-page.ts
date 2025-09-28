@@ -47,7 +47,7 @@ export class RestorePage {
         this.password = this.password === 'password' ? 'text' : 'password';
     }
 
-    jsonFileChange(event: Event): void {
+    backupFileChange(event: Event): void {
         const fileElement = event.target as HTMLInputElement;
 
         const file = fileElement.files?.[0];
@@ -93,7 +93,7 @@ export class RestorePage {
 
         // do some validation
         if (this.jsonContent.length < 100) {
-            this.error = 'You must select a JSON backup file to restore.';
+            this.error = 'You must select a backup file to restore.';
             this.isLoading = false;
             return;
         }

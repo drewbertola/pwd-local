@@ -1,7 +1,7 @@
 <div class="w-96/100 max-w-112 mx-auto">
     <div class="flex justify-between items-center w-full mx-2 mt-4">
         <h1 class="text-xl font-bold">Settings</h1>
-        @if (hasOpenDb) {
+        @if (stateService.hasOpenDb()) {
             <a routerLink="/show" class="fill-blue-800 me-4" title="Back">
                 <app-svg-back class="w-6 h-6" />
             </a>
@@ -17,7 +17,7 @@
         <span class="inline-block">start with a new empty DB.</span>
     </div>
     <div class="flex items-center justify-between w-full max-w-112 mx-auto bg-gray-50  px-4 py-2">
-        @if (hasOpenDb) {
+        @if (stateService.hasOpenDb()) {
             <a routerLink="/export/backup-db" id="backup-db-link"
                 class="font-semibold text-blue-900 text-lg">Backup DB</a>
         } @else {
@@ -31,7 +31,7 @@
         <span class="inline-block">from an ecrypted backup file.</span>
     </div>
     <div class="flex items-center justify-between w-full max-w-112 mx-auto bg-gray-50  px-4 py-2">
-        @if (hasOpenDb) {
+        @if (stateService.hasOpenDb()) {
             <a routerLink="/export/json" id="export-json-link"
                 class="font-semibold text-blue-900 text-lg">Export DB</a>
         } @else {

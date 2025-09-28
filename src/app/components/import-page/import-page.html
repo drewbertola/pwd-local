@@ -11,7 +11,7 @@
             </div>
             <div class=" w-full mt-4">
                 <label for="pwdDbCalled" class="input-label">Name for new PwdDb</label>
-                <input formControlName="pwdDbCalled" id="pwdCalled"
+                <input formControlName="pwdDbCalled" id="pwdDbCalled"
                     type="text" autocomplete="off"
                     class="text-input" />
             </div>
@@ -35,7 +35,7 @@
             </div>
             <app-file-hash-input (keyFileData)="updateKeyFileData($event)" />
             <div class="flex justify-center mt-10">
-                <button type="button"
+                <button type="button" id="import-db-submit"
                     (click)="handleSubmit()"
                     class="form-button">Import PwdDb
                         @if (isLoading) {
