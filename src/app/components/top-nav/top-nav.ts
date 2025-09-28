@@ -1,6 +1,7 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { SessionStorageService } from '../../services/session-storage.service';
 import { StateService } from '../../services/state-service';
 import { SvgMenu } from '../svgs/svg-menu/svg-menu';
 import { SvgClose } from '../svgs/svg-close/svg-close';
@@ -17,6 +18,7 @@ interface CurrentDb {
     templateUrl: './top-nav.html',
 })
 export class TopNav implements OnInit {
+    storage = inject(SessionStorageService);
     stateService = inject(StateService);
 
     title: string = environment.pageTitle;
@@ -40,6 +42,12 @@ export class TopNav implements OnInit {
     };
 
     ngOnInit(): void {
+        const currentDb: CurrentDb | null = this.storage.getItem('currentDb');
+
+        if (currentDb && currentDb.name.length > 1) {
+            this.stateService.setHasOpenDb(true);
+        }
+
         document.addEventListener('click', (event: MouseEvent) => {
             // not open?  Don't do anything
             if (!this.isOpen) { return; }

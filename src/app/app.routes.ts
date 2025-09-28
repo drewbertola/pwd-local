@@ -11,7 +11,6 @@ import { RestorePage } from './components/restore-page/restore-page';
 import { ExportJson } from './components/export-json/export-json';
 import { ImportPage } from './components/import-page/import-page';
 import { SettingsPage } from './components/settings-page/settings-page';
-import { TestStart } from './components/test-start/test-start';
 
 export const routes: Routes = [
     { path: '', component: HomePage },
@@ -26,5 +25,4 @@ export const routes: Routes = [
     { path: 'export/json', component: ExportJson },
     { path: 'import', component: ImportPage },
     { path: 'settings', component: SettingsPage },
-    { path: 'test-start', component: TestStart },
 ];

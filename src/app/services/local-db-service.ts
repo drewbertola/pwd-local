@@ -73,11 +73,12 @@ export class LocalDbService {
         });
     }
 
-    // add locally
-    insert(pwdDb: PwdDb): Promise<boolean> {
+    // add locally, use current milliseconds as key
+    insert(pwdDb: PwdDb): Promise<string> {
+        const key: string = 'db-' + Date.now();
         return new Promise((resolve, reject) => {
-            this.db.collection('pwdDbs').add(pwdDb).then(() => {
-                resolve(true);
+            this.db.collection('pwdDbs').add(pwdDb, key).then(() => {
+                resolve(key);
             }).catch((error: Error) => {
                 reject(error);
             })

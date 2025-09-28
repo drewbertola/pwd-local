@@ -1,7 +1,6 @@
 describe('Create Database, Add an entry, Save', () => {
     it('Prepares Session and Local Db ', () => {
-        cy.visit('/test-start');
-        cy.contains('p', 'Test start clean up');
+        cy.clearDb();
     });
     it('My first database', () => {
         cy.visit('/');
@@ -39,20 +38,48 @@ describe('Create Database, Add an entry, Save', () => {
         cy.contains('p', 'cypress');
         cy.contains('p', '123abc456');
         cy.get('a#quick-save-link').click();
-        // cy.wait(500);
-        // cy.contains('p', 'Banking');
-        // cy.contains('p', 'ABC Credit Union');
-        // cy.pause();
-        // cy.get('a#lock-db-link').click();
-        // cy.contains('h1', 'Open a Pwd Database');
-        // cy.get('input#database-label').type('cypress');
-        // cy.get('li#db-item-0').click();
-        // cy.get('input#secretKey').type('abcd1234');
-        // cy.get('button#open-db-submit').click();
-        // cy.contains('p', 'Banking');
-        // cy.contains('p', 'ABC Credit Union');
-        // cy.get('a#details-link-entry-0').click();
-        // cy.contains('p', 'cypress');
-        // cy.contains('p', '123abc456');
+        cy.contains('p', 'Banking');
+        cy.contains('p', 'ABC Credit Union');
+        cy.get('a#lock-db-link').click();
+        cy.contains('h1', 'Open a Pwd Database');
+        cy.get('input#database-label').type('cypress');
+        cy.get('li#db-item-0').click();
+        cy.get('input#secretKey').type('abcd1234');
+        cy.get('button#open-db-submit').click();
+        cy.contains('p', 'Banking');
+        cy.contains('p', 'ABC Credit Union');
+        cy.get('a#details-link-entry-0').click();
+        cy.contains('p', 'cypress');
+        cy.contains('p', '123abc456');
     });
+    it('Test Nav for Open and Closed DB', () => {
+        cy.visit('/');
+        cy.get('#topNavMenu').contains('a', 'Open Db');
+        cy.get('#topNavMenu').should('not contain', 'Close Db');
+    });
+    // it('Add and Trash handling', () => {
+    //     cy.visit('/');
+    //     cy.contains('h1', 'Open a Pwd Database');
+    //     cy.get('input#database-label').type('cypress');
+    //     cy.get('li#db-item-0').click();
+    //     cy.get('input#secretKey').type('abcd1234');
+    //     cy.get('button#open-db-submit').click();
+    //     cy.contains('p', 'Banking');
+    //     cy.contains('p', 'ABC Credit Union');
+    //     cy.get('a#add-link').click();
+    //     cy.contains('h1', 'Add Entry');
+    //     cy.get('input#category-label').type('Internet');
+    //     cy.get('input#title').type('Nham24');
+    //     cy.get('input#username').type('cypress');
+    //     cy.get('input#password').type('goodeats');
+    //     cy.get('input#url').type('https://nham24.com/login');
+    //     cy.get('button#edit-entry-submit').click();
+    //     cy.contains('p', 'Internet');
+    //     cy.contains('p', 'Nham24');
+    //     cy.get('a#details-link-entry-1').click();
+    //     cy.contains('p', 'Password');
+    //     cy.contains('p', 'goodeats');
+    //     cy.get('a#trash-entry-1').click();
+    //     cy.get('a#trash-link').click();
+    // });
 });

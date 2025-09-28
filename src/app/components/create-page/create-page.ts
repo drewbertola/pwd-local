@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SvgHide } from '../svgs/svg-hide/svg-hide';
 import { SvgShow } from '../svgs/svg-show/svg-show';
+import { CurrentDb } from '../../models/CurrentDb.data';
 import { CryptoService } from '../../services/crypto-service';
 import { SessionStorageService } from '../../services/session-storage.service';
-import { Router } from '@angular/router';
-import { FileHashInput } from "../file-hash-input/file-hash-input";
-import { CurrentDb } from '../../models/CurrentDb.data';
-import { PwdDb } from '../../models/PwdDb.data';
 import { LocalDbService } from '../../services/local-db-service';
+import { FileHashInput } from "../file-hash-input/file-hash-input";
+import { PwdDb } from '../../models/PwdDb.data';
 
 interface KeyFileData {
     useKeyFile: boolean,
@@ -89,7 +89,6 @@ export class CreatePage {
         // prepare and save to current session
         this.currentDb.name = values.pwdDbCalled;
         this.currentDb.password = values.secretKey + this.fileHash;
-        this.sessionStorage.setItem('currentDb', this.currentDb);
 
         // save to indexedDb
         const pwdDb: PwdDb = {
@@ -99,8 +98,11 @@ export class CreatePage {
             iv: '',
         };
 
-        this.db.insert(pwdDb);
-
-        this.router.navigate(['/show']);
+        this.db.insert(pwdDb).then((key) => {
+            this.currentDb.key = key;
+            this.currentDb.isDirty = false;
+            this.sessionStorage.setItem('currentDb', this.currentDb);
+            this.router.navigate(['/show']);
+        });
     }
 }

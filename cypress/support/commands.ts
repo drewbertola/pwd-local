@@ -1,4 +1,19 @@
-import '@this-dot/cypress-indexeddb';
+import Localbase from 'localbase';
+
+Cypress.Commands.add('clearDb', () => {
+    const db = new Localbase('db');
+    db.collection('pwdDbs').delete().then(() => {
+        return;
+    });
+})
+
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            clearDb(): Chainable<void>
+        }
+    }
+}
 
 // ***********************************************
 // This example namespace declaration will help
