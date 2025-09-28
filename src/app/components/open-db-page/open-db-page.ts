@@ -157,6 +157,7 @@ export class OpenDbPage implements OnInit {
 
                 this.storage.setItem('currentDb', dbData);
 
+                this.stateService.setHasOpenDb(true);
                 this.isLoading = false;
                 this.router.navigate(['/show']);
             }).catch((error) => {
