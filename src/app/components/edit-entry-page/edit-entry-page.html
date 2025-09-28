@@ -1,0 +1,79 @@
+<div class="w-96/100 sm:w-112 md:w-70/100 lg:w-50/100 mx-2 sm:mx-auto">
+    <div class="flex justify-between items-center w-full mx-2 mt-4">
+        <h1 class="text-xl font-bold">{{ title }}</h1>
+
+        <a routerLink="/show" class="fill-blue-800 me-4" title="Back">
+            <app-svg-back class="w-6 h-6" />
+        </a>
+    </div>
+    <div class="w-full flex flex-col items-center justify-center gap-3 py-0">
+        <h2 id="errorMessage" class="text-red-800 font-bold">{{ error }}</h2>
+        <div [formGroup]="entryForm" class="w-92/100 sm:w-80/100 md:w-112">
+            <app-search-input
+                [control]="categoryControl"
+                id="category"
+                label="Category"
+                [allowNew]="true"
+                [completions]="currentDb?.categories!" />
+            <div class="w-full mt-4">
+                <label for="title" class="input-label">Title</label>
+                <input id="title" formControlName="title"
+                    type="text"
+                    autocomplete="off"
+                    class="text-input" />
+            </div>
+            <div class="w-full mt-4">
+                <label for="username" class="input-label">Username</label>
+                <input id="username" formControlName="username"
+                    type="text"
+                    autocomplete="off"
+                    class="text-input" />
+            </div>
+            <div class="relative w-full mt-4">
+                <label for="password" class="input-label">Password</label>
+                <input formControlName="password" id="password"
+                    type="text"
+                    required
+                    autocomplete="off"
+                    autocapitalize="off"
+                    class="text-input" [class.pwdMasked]="password === 'password'" />
+                <button tabindex="-1"
+                    title="Generate Password"
+                    (click)="generatePassword()"
+                    class="absolute right-12 top-11">
+                    <app-svg-cycle class="w-5 h-5 fill-black bg-transparent" />
+                </button>
+                <button tabindex="-1"
+                    (click)="toggleVisibility()"
+                    class="absolute right-4 top-11">
+                    @if (password === 'password') {
+                        <app-svg-hide class="w-5 h-5 fill-black bg-transparent" />
+                    } @else {
+                        <app-svg-show class="w-5 h-5 fill-black bg-transparent" />
+                    }
+                </button>
+            </div>
+            <div class="w-full mt-4">
+                <label for="url" class="input-label">URL</label>
+                <input id="url" formControlName="url"
+                    type="text"
+                    autocomplete="off"
+                    class="text-input" />
+            </div>
+            <div class="w-full mt-4">
+                <label for="notes" class="input-label">Notes</label>
+                <textarea id="notes" rows="6" formControlName="notes" class="text-input">
+                </textarea>
+            </div>
+            <div class="flex justify-center mt-10">
+                <button type="button" id="edit-entry-submit"
+                    (click)="handleSubmit()"
+                    class="form-button">Save Entry
+                        @if (isLoading) {
+                            <i class="loader-white text-2xl ms-2"></i>
+                        }
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

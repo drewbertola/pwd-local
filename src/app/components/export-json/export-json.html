@@ -1,0 +1,32 @@
+<div class="w-96/100 sm:w-112 md:w-70/100 lg:w-50/100 mx-2 sm:mx-auto">
+    <div class="mx-2 sm:mx-auto mt-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-xl font-bold">
+                Export Plaintext File
+            </h1>
+
+            <a routerLink="/settings" class="fill-blue-800 me-4" title="Back">
+                <app-svg-back class="w-6 h-6" />
+            </a>
+        </div>
+        @if (noDbToExport) {
+            <p class="info">
+                There is no open DB with entries to export.
+            </p>
+        } @else {
+            <p class="note">
+                <span class="text-red-600 font-semibold">DANGER:</span> The following operation
+                will produce an <span class="underline">unencrypted</span> (plaintext) copy of your
+                password database in JSON format. Therefore, please take appropriate care with this
+                file.  It would be good to "cold store" the file by saving it to a removable disk,
+                then detaching and storing the disk somewhere secure, and deleting the original copy
+                from your hard drive.
+            </p>
+            <div class="text-center">
+                <button class="form-button my-2" (click)="onClick()">
+                    Continue with Export
+                </button>
+            </div>
+        }
+    </div>
+</div>

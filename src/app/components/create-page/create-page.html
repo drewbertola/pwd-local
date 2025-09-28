@@ -1,0 +1,55 @@
+<div class="flex flex-col md:flex-row mx-2 md:mx-auto">
+    <div class="w-full flex flex-col items-center justify-center gap-3 py-4">
+        <h1 class="text-lg font-bold">Create New Database</h1>
+        <p class="info">
+            You can create a new PwdDb.  Once created, you can open it to start
+            adding entries.
+        </p>
+        <h2 id="errorMessage" class="text-red-800 font-bold">{{ error.form }}</h2>
+        <div [formGroup]="saveDbForm" class="w-92/100 sm:w-80/100 md:w-112">
+            <div class=" w-full mt-4">
+                <label for="pwdDbCalled" class="input-label">Name for this PwdDb</label>
+                <input formControlName="pwdDbCalled" id="pwdCalled"
+                    type="text" autocomplete="off"
+                    class="text-input" [class.error]="error.pwdDbCalled !== ''" />
+                <p class="text-red-800 text-sm hint">{{ error.pwdDbCalled }}</p>
+            </div>
+            <div class="relative w-full mt-4">
+                <label for="secretKey" class="input-label">Secret Key</label>
+                <input formControlName="secretKey" id="secretKey"
+                    type="text"
+                    required
+                    autocomplete="off"
+                    autocapitalize="off"
+                    class="text-input" [class.pwdMasked]="password === 'password'" />
+                <button tabindex="-1"
+                    (click)="toggleVisibility()"
+                    class="absolute right-4 top-10.5">
+                    @if (password === 'password') {
+                        <app-svg-hide class="w-6 h-6 fill-black bg-transparent" />
+                    } @else {
+                        <app-svg-show class="w-6 h-6 fill-black bg-transparent" />
+                    }
+                </button>
+            </div>
+            <app-file-hash-input (keyFileData)="updateKeyFileData($event)" />
+            <div class="flex justify-center mt-10">
+                <button type="button" id="create-submit"
+                    (click)="handleSubmit()"
+                    class="form-button">Create PwdDb
+                        @if (isLoading) {
+                            <i class="loader-white text-2xl ms-2"></i>
+                        }
+                </button>
+            </div>
+        </div>
+        <p class="note">
+            * NOTE: Using a key file will increase your security by requiring that
+            not only do you know something (secret key), but you also have something
+            (the key file).  If you use a key file, it will be required later
+            whenever you want to open your database.  If you lose the key file,
+            or it's content changes, you will be unable to retrieve your stored
+            passwords.
+        </p>
+    </div>
+</div>

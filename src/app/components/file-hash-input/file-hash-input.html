@@ -1,0 +1,15 @@
+<div class="w-full ms-1 mt-8">
+    <input id="useKF" type="checkbox" (change)="useKeyFileChange($event)"
+        [checked]="useKeyFile"
+        class="w-4 h-4 mr-3 focus:ring-1
+            focus:ring-offset-slate-200
+            focus:ring-offset-4 focus:ring-[#007bff]" />
+    <label for="useKF" class="text-black text-sm">Use a Key File for added security.*</label>
+</div>
+@if (useKeyFile) {
+    <div class="w-full mt-1">
+        <label for="keyFile" class="input-label">Use Key File</label>
+        <input type="file"id="keyFile" (change)="fileChange($event)"
+            class="file-input" />
+    </div>
+}

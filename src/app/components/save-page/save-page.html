@@ -1,0 +1,61 @@
+<div class="w-96/100 sm:w-112 md:max-w-112 mx-2 sm:mx-auto">
+    <div class="flex justify-between items-center w-full mx-2 mt-4">
+        <h1 class="text-xl font-bold">Save Database</h1>
+        <a routerLink="/show" class="fill-blue-800 me-4" title="Back">
+            <app-svg-back class="w-6 h-6" />
+        </a>
+    </div>
+    <div class="w-full flex flex-col items-center justify-center gap-3 py-4">
+        <p class="info">
+            You can change the name and credentials for this PwdDb. As well, local
+            additions, updates, and deletions to the db will be permanently stored
+            when you save.</p>
+        <h2 id="errorMessage" class="text-red-800 font-bold">{{ error.form }}</h2>
+        <div [formGroup]="saveDbForm" class="w-92/100 sm:w-80/100 md:w-112">
+            <div class=" w-full mt-4">
+                <label for="pwdDbCalled" class="input-label">Name for this PwdDb</label>
+                <input formControlName="pwdDbCalled" id="pwdDbCalled"
+                    type="text" autocomplete="off"
+                    class="text-input"
+                    [class.error]="error.name !== ''" />
+                <p class="text-red-800 text-sm hint">{{ error.name }}</p>
+            </div>
+            <div class="relative w-full mt-4">
+                <label for="secretKey" class="input-label">Secret Key</label>
+                <input formControlName="secretKey" id="secretKey"
+                    type="text"
+                    required
+                    autocomplete="off"
+                    autocapitalize="off"
+                    class="text-input" [class.pwdMasked]="password === 'password'" />
+                <button tabindex="-1"
+                    (click)="toggleVisibility()"
+                    class="absolute right-4 top-10.5">
+                    @if (password === 'password') {
+                        <app-svg-hide class="w-6 h-6 fill-black bg-transparent" />
+                    } @else {
+                        <app-svg-show class="w-6 h-6 fill-black bg-transparent" />
+                    }
+                </button>
+            </div>
+            <app-file-hash-input (keyFileData)="updateKeyFileData($event)" />
+            <div class="flex justify-center mt-10">
+                <button type="button" id="save-db-submit"
+                    (click)="handleSubmit()"
+                    class="form-button">Save PwdDb
+                        @if (isLoading) {
+                            <i class="loader-white text-2xl ms-2"></i>
+                        }
+                </button>
+            </div>
+        </div>
+        <p class="note">
+            * NOTE: Using a key file will increase your security by requiring that
+            not only do you know something (secret key), but you also have something
+            (the key file).  If you use a key file, it will be required later
+            whenever you want to open your database.  If you lose the key file,
+            or it's content changes, you will be unable to retrieve your stored
+            passwords.
+        </p>
+    </div>
+</div>

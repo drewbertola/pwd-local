@@ -1,0 +1,43 @@
+<div class="flex flex-col md:flex-row mx-2 md:mx-auto">
+    <div class="w-full flex flex-col items-center justify-center gap-3 py-5 mt-5">
+        <h1 class="text-2xl font-bold">Open a Pwd Database</h1>
+        <p id="form-error" class="text-red-800 font-bold">{{ error }}</p>
+        <div [formGroup]="openDbForm" class="w-92/100 sm:w-80/100 md:w-112">
+            <app-search-input
+                [control]="databaseControl"
+                id="database"
+                label="Select your PwdDb"
+                [completions]="dbs" />
+            <div id="database-error" class="relative w-full mt-4">
+                <label for="secretKey" class="input-label">Secret Key</label>
+                <input formControlName="secretKey" id="secretKey"
+                    type="text"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    required
+                    autocomplete="off"
+                    class="text-input" [class.pwdMasked]="password === 'password'" />
+                <button tabindex="-1"
+                    (click)="toggleVisibility()"
+                    class="absolute right-4 top-10.5">
+                    @if (password === 'password') {
+                        <app-svg-hide class="w-6 h-6 fill-black bg-transparent" />
+                    } @else {
+                        <app-svg-show class="w-6 h-6 fill-black bg-transparent" />
+                    }
+                </button>
+            </div>
+            <app-file-hash-input (keyFileData)="updateKeyFileData($event)" />
+            <div class="flex justify-center mt-10">
+                <button type="button" id="open-db-submit"
+                    (click)="handleSubmit()"
+                    class="form-button">Open Db
+                        @if (isLoading) {
+                            <i class="loader-white text-2xl ms-2"></i>
+                        }
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <app-whoami /> -->

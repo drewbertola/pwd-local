@@ -1,0 +1,83 @@
+<div class="bg-gray-100 border rounded-lg shadow-lg mx-auto px-4 my-4">
+    <div class="mt-2 text-center bg-white rounded-xl shadow-md mx-auto">
+        <p class="font-semibold px-4 pt-2">{{ entry().title }}</p>
+        <p class="px-4 pb-2 text-center">{{ entry().category }}</p>
+    </div>
+
+    <div [id]="'details-' + entry().key"
+        class="max-h-0 overflow-hidden transition-all duration-200 ease-in-out">
+        <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center justify-start w-96/100">
+                <p>Username:</p>
+                <p class="mx-2">{{ entry().username }}</p>
+            </div>
+        </div>
+        <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center justify-start">
+                <p>Password:</p>
+                <p class="ms-2 overflow-hidden max-w-40" [class.pwdMasked]="password === 'password'">
+                    {{ entry().password }}
+                </p>
+            </div>
+            <div class="flex justify-end mt-1">
+                <button tabindex="-1" (click)="toggleVisibility()"
+                    title="Show / Hide Password">
+                    @if (password === 'password') {
+                        <app-svg-hide class="w-6 h-6 fill-black bg-transparent" />
+                    } @else {
+                        <app-svg-show class="w-6 h-6 fill-black bg-transparent" />
+                    }
+                </button>
+            </div>
+        </div>
+        <div class="flex items-center justify-between mt-4">
+            <div class="flex items-center justify-start w-fit">
+                <p>URL:</p>
+                <p class="mx-2">{{ entry().url }}</p>
+            </div>
+        </div>
+        @if (entry().notes.trim().length > 0) {
+            <p class="mt-4">Notes:</p>
+            <pre class="bg-gray-50 p-2 border-2 border-gray-200">{{ entry().notes.trim() }}</pre>
+        }
+        <div class="flex items-center justify-center my-4">
+            @if (entry().inTrash === true) {
+                <a (click)="handleTrash(entry().key)" [id]="'recycle-' + entry().key"
+                    title="Recycle from Trash" class="block me-4">
+                    <app-svg-recycle class="w-6 h-6 fill-green-600 bg-transparent" />
+                </a>
+            } @else {
+                <a (click)="handleTrash(entry().key)" [id]="'trash-' + entry().key"
+                    title="Move to Trash" class="block mx-4">
+                    <app-svg-trash class="w-6 h-6 fill-red-800 bg-transparent" />
+                </a>
+            }
+            <a [routerLink]="'/edit/' + entry().key" [id]="'edit-' + entry().key"
+                title="Edit Entry" class="block mx-4">
+                <app-svg-edit-file class="w-6 h-6 fill-yellow-800 bg-transparent" />
+            </a>
+        </div>
+    </div>
+    <div class="flex items-center justify-between mt-2 mb-4">
+        <div class="flex justify-start">
+            <a (click)="toggleDetails(entry().key)" [id]="'details-link-' + entry().key"
+                title="Show / Hide Details" class="block mt-2">
+                @if (showDetails) {
+                    <app-svg-dropdown class="w-6 h-6 rotate-180" />
+                } @else {
+                    <app-svg-dropdown class="w-6 h-6" />
+                }
+            </a>
+        </div>
+        <div class="flex items-center justify-end">
+            <button tabindex="-1" (click)="copyToClipboard(entry().username)"
+                title="Copy Username to Clipboard" class="me-4">
+                <app-svg-clipboard-u class="w-6 h-6 fill-blue-800 bg-transparent" />
+            </button>
+            <button tabindex="-1" (click)="copyToClipboard(entry().password)"
+                title="Copy Password to Clipboard">
+                <app-svg-clipboard-p class="w-6 h-6 fill-blue-800 bg-transparent" />
+            </button>
+        </div>
+    </div>
+</div>

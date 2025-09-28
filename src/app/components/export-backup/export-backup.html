@@ -1,0 +1,27 @@
+<div class="w-96/100 sm:w-112 md:w-70/100 lg:w-50/100 mx-2 sm:mx-auto">
+    <div class="mx-2 sm:mx-auto mt-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-xl font-bold">Backup Database</h1>
+
+            <a routerLink="/settings" class="fill-blue-800 me-4" title="Back">
+                <app-svg-back class="w-6 h-6" />
+            </a>
+        </div>
+        @if (noDbToExport) {
+            <p class="info">
+                There is no open DB with entries to export.
+            </p>
+        } @else {
+            <p class="note">
+                NOTE: This will create a file containing your encrypted PwdDb.  If you want to include
+                any recent changes that have not been saved, you should save them first.  You can keep
+                this file as a backup.
+            </p>
+            <div class="text-center">
+                <button class="form-button my-2" (click)="onClick()">
+                    Continue with Backup
+                </button>
+            </div>
+        }
+    </div>
+</div>

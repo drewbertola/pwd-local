@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+.toast-success { background-color: var(--color-green-700) !important; }
+.toast-error { background-color: var(--color-red-800) !important; }
+
+.text-input {
+    @apply
+        w-full
+        text-gray-800
+        font-medium
+        text-base
+        placeholder:italic
+        placeholder:text-gray-500
+        bg-white
+        border
+        rounded
+        py-3
+        px-4
+}
+.file-input {
+    @apply
+        w-full
+        text-gray-800
+        font-medium
+        text-base
+        placeholder:italic
+        placeholder:text-gray-500
+        bg-white
+        border
+        file:cursor-pointer
+        cursor-pointer
+        file:border-0
+        file:py-3
+        file:px-4
+        file:mr-4
+        file:bg-gray-100
+        file:hover:bg-gray-200
+        file:text-slate-500
+        rounded
+}
+.pwdMasked {
+    -webkit-text-security: disc;
+}
+.input-label {
+    @apply
+        text-base
+        text-slate-900
+        font-medium
+        mb-1
+        block
+}
+input.faint { color: #ccc !important; }
+input.error { border-color: red; }
+.form-button {
+    @apply
+        max-w-[17.35rem]
+        rounded
+        text-white
+        bg-blue-900
+        hover:bg-blue-700
+        px-4
+        py-2
+        cursor-pointer;
+}
+
+p.note {
+    @apply
+        w-full
+        sm:max-w-112
+        text-blue-700
+        bg-yellow-50
+        px-4
+        py-2
+        mx-auto
+        my-4
+}
+p.info {
+    @apply
+        w-full
+        sm:max-w-112
+        bg-gray-50
+        text-gray-700
+        px-4
+        py-2
+        mx-auto
+        my-4
+}
+
+.loader {
+    border: .1em solid #1c398e;
+    border-right-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    width: .5em;
+    height: .5em;
+
+    -webkit-animation: spin .75s linear infinite;
+    -moz-animation: spin .75s linear infinite;
+    -ms-animation: spin .75s linear infinite;
+    -o-animation: spin .75s linear infinite;
+    animation: spin .75s linear infinite;
+}
+
+.loader-white {
+    border: .1em solid #ffffff;
+    border-right-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    width: .5em;
+    height: .5em;
+
+    -webkit-animation: spin .75s linear infinite;
+    -moz-animation: spin .75s linear infinite;
+    -ms-animation: spin .75s linear infinite;
+    -o-animation: spin .75s linear infinite;
+    animation: spin .75s linear infinite;
+}
+@-webkit-keyframes spin {
+	100% { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+	100% { -moz-transform: rotate(360deg); }
+}
+@-o-keyframes spin {
+	100% { -o-transform: rotate(360deg); }
+}
+@keyframes spin {
+	100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,38 @@
+<div class="w-96/100 sm:w-112 md:w-70/100 lg:w-50/100 mx-2 sm:mx-auto">
+    <div class="flex justify-between items-center w-full mx-2 mt-4">
+        <h1 class="text-xl font-bold">Trash</h1>
+
+        <a routerLink="/show" id="return-link" class="fill-blue-800 me-4" title="Back">
+            <app-svg-back class="w-6 h-6" />
+        </a>
+    </div>
+    <p class="note">
+        Emptying the trash will pernanently delete all entries in the trash.  It will also
+        save any other changes or additions to the DB.  Items in the trash can be retrieved
+        by clicking the <app-svg-recycle class="w-5 h-5 fill-green-600 inline mx-1" />
+        recycle icon in the expanded view.
+    </p>
+    @if (isLoading) {
+        <div class="flex justify-center">
+            <i class="loader text-center text-5xl mt-4"></i>
+        </div>
+    } @else {
+        @if (entriesInTrash.length > 0) {
+            <div class="flex justify-center items-center w-full mx-2 mt-2">
+                <button id="empty-trash-submit" (click)="emptyTrash()"
+                    title="Empty Trash and Save Database"
+                    class="rounded text-white bg-blue-900 hover:bg-blue-700 px-4 py-1">
+                    Empty Trash
+                    @if (isLoading) {
+                        <i class="loader-white text-2xl ms-2"></i>
+                    }
+                </button>
+            </div>
+        }
+        @for (entry of entriesInTrash; track $index) {
+            <app-entry-card [entry]="entry" (dataEmitted)="handleChildFromTrash($event)" />
+        } @empty {
+            <p class="text-center my-8 italic">No entries to show.</p>
+        }
+    }
+</div>

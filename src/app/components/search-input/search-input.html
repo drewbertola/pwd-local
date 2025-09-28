@@ -1,0 +1,41 @@
+<div class="relative w-full mb-5 group mt-6">
+    <input type="hidden" [id]="id()" [formControl]="control()">
+    <label [for]="id() + '-label'" class="input-label">{{ label() }}</label>
+    <input
+        type="text"
+        autocomplete="off"
+        [id]="id() + '-label'"
+        [placeholder]="label()"
+        (keyup)="onKeyup($event)"
+        (keydown.arrowdown)="onArrowDown()"
+        (keydown.arrowup)="onArrowUp()"
+        (keydown.enter)="onEnter($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        class="text-input"
+    />
+    <app-svg-dropdown
+        class="absolute top-5.5 right-2 w-6 h-6 fill-gray-600
+        bg-transparent pointer-events-none" />
+    <ul [id]="id() + '-results'"
+        class="absolute border-2 border-gray-400 z-10 w-full max-h-55
+            overflow-y-auto bg-gray-100"
+        [class.hidden]="! isOpen">
+        @for (result of results; track $index) {
+            <li (click)="onItemClick($event)" [id]="'db-item-' + $index"
+                class="p-2 hover:bg-blue-700 hover:text-white"
+                [class.bg-blue-700]="$index === arrowCounter"
+                [class.text-white]="$index === arrowCounter">
+                {{ result.label }}
+            </li>
+        } @empty {
+            <li class="p-2 italic text-sm bg-gray-100">
+                @if (allowNew()) {
+                    Add new
+                } @else {
+                    No matches found
+                }
+            </li>
+        }
+    </ul>
+</div>

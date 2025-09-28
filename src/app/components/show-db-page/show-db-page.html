@@ -1,0 +1,37 @@
+<div class="w-96/100 sm:w-112 md:w-70/100 lg:w-50/100 mx-2 sm:mx-auto mb-16">
+    <div class="flex justify-between items-center w-full mx-auto">
+        <div class="relative mt-4 ">
+            <input class="text-input" id="search" placeholder="Search Entries..."
+                (keyup)="searchEntries($event)" style="padding: 8px;" autocomplete="off" />
+            <app-svg-search class="absolute top-1.5 right-1.5 w-5 h-5 pointer-events-none" />
+        </div>
+        <div class="flex items-center justify-end ms-4">
+            @if (isDirty) {
+                <a (click)="saveDatabase()" id="quick-save-link"
+                    title="Quick Save Changes" class="cursor-pointer mt-4 p-2">
+                    <app-svg-floppy class="w-6 h-6 bg-green-300" />
+                </a>
+            }
+            <a routerLink="/open" id="lock-db-link"
+                title="Lock Database" class="mt-4 p-2">
+                <app-svg-lock class="w-6 h-6" />
+            </a>
+        </div>
+    </div>
+    @if (isLoading) {
+        <div class="flex justify-center">
+            <i class="loader text-center text-5xl mt-4"></i>
+        </div>
+    } @else {
+        @for (entry of entriesToShow; track entry.key; ) {
+            <app-entry-card [entry]="entry" (dataEmitted)="handleChildToTrash($event)" />
+        } @empty {
+            <p class="text-center my-8 italic">No entries to show.</p>
+            <p class="text-center my-8 italic">Use the add icon below to add an entry.</p>
+        }
+    }
+</div>
+<a routerLink="/edit/0" id="add-link" class="fixed bottom-2 right-2">
+    <app-svg-action-button
+        class="w-12 h-12 fill-blue-900 bg-transparent" />
+</a>
