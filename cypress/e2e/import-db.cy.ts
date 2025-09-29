@@ -18,4 +18,7 @@ describe('Import Database, Save, and Backup', () => {
         cy.get('button#open-db-submit').click();
         cy.get('app-entry-card').its('length').should('eq', 1);
     });
+    it('Waits a bit for video', () => {
+        cy.wait(2000);
+    })
 });
