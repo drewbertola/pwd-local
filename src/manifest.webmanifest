@@ -1,6 +1,6 @@
 {
-  "name": "PwdDB@drewB.com",
-  "short_name": "PwdDB",
+  "name": "PwdLocal@drewB.com",
+  "short_name": "PwdLocal",
   "display": "standalone",
   "theme_color": "#1c398e",
   "background_color": "#ffffff",

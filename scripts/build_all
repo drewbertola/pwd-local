@@ -1,0 +1,48 @@
+#!/bin/bash
+
+. /etc/profile
+
+# exit on error
+#set -e
+
+# production build
+echo -n "building production ... "
+ng build > /dev/null
+
+if [ $? -ne 0 ] ; then
+    echo "production build failed"
+    echo
+    echo "Exiting on ERROR"
+    echo
+    exit 1;
+fi
+
+echo "DONE"
+
+# test
+echo -n "testing ... "
+npx cypress run --headless --e2e --quiet -s ./cypress/e2e/all_tests.cy.ts
+
+if [ $? -ne 0 ] ; then
+    echo "testing failed"
+    echo
+    echo "Exiting on ERROR"
+    echo
+    exit 1;
+fi
+
+echo "DONE"
+
+# deploy
+echo -n "uploading to server ... "
+rsync -e ssh -avzq --delete dist/pwd-local/browser/ mail.seekerinc.com:/var/www/pwd-local/public/
+
+if [ $? -ne 0 ] ; then
+    echo "upload failed"
+    echo
+    echo "Exiting on ERROR"
+    echo
+    exit 1;
+fi
+
+echo "DONE"
