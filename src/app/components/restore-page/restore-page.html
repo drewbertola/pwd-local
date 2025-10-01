@@ -2,38 +2,13 @@
     <div class="w-full flex flex-col items-center justify-center gap-3 py-4">
         <h1 class="text-lg font-bold">Restore a Database</h1>
         <h2 id="errorMessage" class="text-red-800 font-bold">{{ error }}</h2>
-        <div [formGroup]="importDbForm" class="w-92/100 sm:w-80/100 md:w-112">
+        <div class="w-92/100 sm:w-80/100 md:w-112">
             <div class=" w-full mt-4">
                 <label for="backupFile" class="input-label">Select Backup File</label>
                 <input id="backupFile" (change)="backupFileChange($event)"
                     type="file" autocomplete="off"
                     class="file-input" />
             </div>
-            <div class=" w-full mt-4">
-                <label for="pwdDbCalled" class="input-label">Name for new PwdDb</label>
-                <input formControlName="pwdDbCalled" id="pwdDbCalled"
-                    type="text" autocomplete="off"
-                    class="text-input" />
-            </div>
-            <div class="relative w-full mt-4">
-                <label for="secretKey" class="input-label">Secret Key</label>
-                <input formControlName="secretKey" id="secretKey"
-                    type="text"
-                    required
-                    autocomplete="off"
-                    autocapitalize="off"
-                    class="text-input" [class.pwdMasked]="password === 'password'" />
-                <button tabindex="-1"
-                    (click)="toggleVisibility()"
-                    class="absolute right-4 top-10.5">
-                    @if (password === 'password') {
-                        <app-svg-hide class="w-6 h-6 fill-black bg-transparent" />
-                    } @else {
-                        <app-svg-show class="w-6 h-6 fill-black bg-transparent" />
-                    }
-                </button>
-            </div>
-            <app-file-hash-input (keyFileData)="updateKeyFileData($event)" />
             <div class="flex justify-center mt-10">
                 <button type="button" id="restore-db-submit"
                     (click)="handleSubmit()"
@@ -45,12 +20,8 @@
             </div>
         </div>
         <p class="note">
-            * NOTE: Using a key file will increase your security by requiring that
-            not only do you know something (secret key), but you also have something
-            (the key file).  If you use a key file, it will be required later
-            whenever you want to open your database.  If you lose the key file,
-            or it's content changes, you will be unable to retrieve your stored
-            passwords.
+            * NOTE: You will still need the Secret Key (and optional Key File) to open
+            this Db once it is restored.
         </p>
     </div>
 </div>

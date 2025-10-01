@@ -4,9 +4,6 @@ import { Router } from '@angular/router';
 import { PwdDb } from '../../models/PwdDb.data';
 import { CryptoService } from '../../services/crypto-service';
 import { LocalDbService } from '../../services/local-db-service';
-import { SvgShow } from '../svgs/svg-show/svg-show';
-import { SvgHide } from '../svgs/svg-hide/svg-hide';
-import { FileHashInput } from '../file-hash-input/file-hash-input';
 
 interface KeyFileData {
     useKeyFile: boolean,
@@ -15,7 +12,7 @@ interface KeyFileData {
 
 @Component({
     selector: 'app-restore-page',
-    imports: [SvgShow, SvgHide, FileHashInput, ReactiveFormsModule],
+    imports: [],
     templateUrl: './restore-page.html'
 })
 export class RestorePage {
@@ -24,11 +21,6 @@ export class RestorePage {
     router = inject(Router);
 
     pwdDbs: PwdDb[] = [];
-
-    importDbForm: FormGroup = new FormGroup({
-        secretKey: new FormControl(''),
-        pwdDbCalled: new FormControl(''),
-    });
 
     error: string = '';
     password: string = 'password';
@@ -94,24 +86,6 @@ export class RestorePage {
         // do some validation
         if (this.jsonContent.length < 100) {
             this.error = 'You must select a backup file to restore.';
-            this.isLoading = false;
-            return;
-        }
-
-        if (this.importDbForm.get('pwdDbCalled')?.value.length < 3) {
-            this.error = 'You must give the new DB a name with more than 2 characters.'
-            this.isLoading = false;
-            return;
-        }
-
-        if (this.importDbForm.get('secretKey')?.value.length < 8) {
-            this.error = 'Your secret key must be at least 8 characters';
-            this.isLoading = false;
-            return;
-        }
-
-        if (this.useKeyFile && this.fileHash.length === 0) {
-            this.error = 'No key file selected, but "Use a Key File" checked.';
             this.isLoading = false;
             return;
         }
