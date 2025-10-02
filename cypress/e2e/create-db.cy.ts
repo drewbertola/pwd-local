@@ -43,10 +43,7 @@ describe('Create Database, Add an entry, Save', () => {
         cy.contains('p', 'ABC Credit Union');
         cy.get('a#lock-db-link').click();
         cy.contains('h1', 'Open a Pwd Database');
-        cy.get('input#database-label').type('cypress');
-        cy.get('li#db-item-0').click();
-        cy.get('input#secretKey').type('abcd1234');
-        cy.get('button#open-db-submit').click();
+        cy.openDb();
         cy.get('app-entry-card').its('length').should('eq', 1);
         cy.contains('p', 'Banking');
         cy.contains('p', 'ABC Credit Union');
@@ -58,10 +55,7 @@ describe('Create Database, Add an entry, Save', () => {
         cy.visit('/');
         cy.get('#topNavMenu').contains('a', 'Open Db');
         cy.contains('h1', 'Open a Pwd Database');
-        cy.get('input#database-label').type('cypress');
-        cy.get('li#db-item-0').click();
-        cy.get('input#secretKey').type('abcd1234');
-        cy.get('button#open-db-submit').click();
+        cy.openDb();
         cy.get('#topNavMenu').contains('a', 'Close Db');
         cy.get('#topNavMenu').contains('a', 'Save Db');
         cy.get('#topNavMenu').contains('a', 'Trash');
@@ -69,10 +63,7 @@ describe('Create Database, Add an entry, Save', () => {
     it('Add and Trash handling', () => {
         cy.visit('/');
         cy.contains('h1', 'Open a Pwd Database');
-        cy.get('input#database-label').type('cypress');
-        cy.get('li#db-item-0').click();
-        cy.get('input#secretKey').type('abcd1234');
-        cy.get('button#open-db-submit').click();
+        cy.openDb();
         cy.contains('p', 'Banking');
         cy.contains('p', 'ABC Credit Union');
         cy.get('a#add-link').click();
@@ -109,10 +100,7 @@ describe('Create Database, Add an entry, Save', () => {
         cy.get('app-entry-card').its('length').should('eq', 1);
         cy.get('a#lock-db-link').click();
         cy.contains('h1', 'Open a Pwd Database');
-        cy.get('input#database-label').type('cypress');
-        cy.get('li#db-item-0').click();
-        cy.get('input#secretKey').type('abcd1234');
-        cy.get('button#open-db-submit').click();
+        cy.openDb();
         cy.get('app-entry-card').its('length').should('eq', 1);
         cy.get('a#trash-link').click();
         cy.contains('p.italic', 'No entries to show');
@@ -120,10 +108,7 @@ describe('Create Database, Add an entry, Save', () => {
     it('Save as, with File', () => {
         cy.visit('/');
         cy.contains('h1', 'Open a Pwd Database');
-        cy.get('input#database-label').type('cypress');
-        cy.get('li#db-item-0').click();
-        cy.get('input#secretKey').type('abcd1234');
-        cy.get('button#open-db-submit').click();
+        cy.openDb();
         cy.get('app-entry-card').its('length').should('eq', 1);
         cy.get('a#save-db-link').click();
         cy.get('input#pwdDbCalled').type('Cypress New Name DB');
@@ -133,14 +118,9 @@ describe('Create Database, Add an entry, Save', () => {
         cy.get('button#save-db-submit').click();
         cy.get('a#lock-db-link').click();
         cy.contains('h1', 'Open a Pwd Database');
-        cy.get('input#database-label').type('cypress');
-        cy.get('li#db-item-0').click();
-        cy.get('input#secretKey').type('1234abcd');
-        cy.get('button#open-db-submit').click();
+        cy.openDb();
         cy.contains('p', 'Error: Failed to decrypt database.');
-        cy.get('input#useKF').check();
-        cy.get('input#keyFile').selectFile('./cypress/support/test_file.txt');
-        cy.get('button#open-db-submit').click();
+        cy.openDbWithFile();
         cy.get('app-entry-card').its('length').should('eq', 1);
     });
 });

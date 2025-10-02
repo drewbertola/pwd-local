@@ -7,10 +7,29 @@ Cypress.Commands.add('clearDb', () => {
     });
 })
 
+Cypress.Commands.add('openDb', () => {
+    cy.get('input#database-label').type('cypress');
+    cy.get('li#db-item-0').click();
+    cy.get('input#secretKey').type('abcd1234');
+    cy.get('button#open-db-submit').click();
+});
+
+Cypress.Commands.add('openDbWithFile', () => {
+    cy.get('input#database-label').clear().type('cypress');
+    cy.get('li#db-item-0').click();
+    cy.get('input#secretKey').clear().type('1234abcd');
+    cy.get('button#open-db-submit').click();
+    cy.get('input#useKF').check();
+    cy.get('input#keyFile').selectFile('./cypress/support/test_file.txt');
+    cy.get('button#open-db-submit').click();
+});
+
 declare global {
     namespace Cypress {
         interface Chainable {
-            clearDb(): Chainable<void>
+            clearDb(): Chainable<void>,
+            openDb(): Chainable<void>,
+            openDbWithFile(): Chainable<void>,
         }
     }
 }
