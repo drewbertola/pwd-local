@@ -131,9 +131,9 @@ export class SearchInput implements OnInit {
     ngOnInit(): void {
         const timeout = setTimeout(() => {
             const searchInput = document.getElementById(this.id() + '-label') as HTMLInputElement;
-            const value = this.control().value;
+            const value = String(this.control().value);
 
-            searchInput!.value = this.completions().find((item) => item.value === value)?.label || '';
+            searchInput!.value = this.completions().find((item) => String(item.value) === value)?.label || '';
 
             this.updateResults();
 

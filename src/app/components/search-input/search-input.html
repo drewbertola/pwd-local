@@ -1,6 +1,5 @@
 <div class="relative w-full mb-5 group mt-6">
     <input type="hidden" [id]="id()" [formControl]="control()">
-    <label [for]="id() + '-label'" class="input-label">{{ label() }}</label>
     <input
         type="text"
         autocomplete="off"
@@ -12,17 +11,18 @@
         (keydown.enter)="onEnter($event)"
         (focus)="onFocus()"
         (blur)="onBlur()"
-        class="text-input"
+        class="peer floating-input"
     />
     <app-svg-dropdown
-        class="absolute top-5.5 right-2 w-6 h-6 fill-gray-600
+        class="absolute top-1.5 right-0.5 w-6 h-6 fill-gray-600
         bg-transparent pointer-events-none" />
+    <label [for]="id() + '-label'" class="floating-label">{{ label() }}</label>
     <ul [id]="id() + '-results'"
         class="absolute border-2 border-gray-400 z-10 w-full max-h-55
             overflow-y-auto bg-gray-100"
         [class.hidden]="! isOpen">
         @for (result of results; track $index) {
-            <li (click)="onItemClick($event)" [id]="'db-item-' + $index"
+            <li (click)="onItemClick($event)" [id]="id() + '-item-' + $index"
                 class="p-2 hover:bg-blue-700 hover:text-white"
                 [class.bg-blue-700]="$index === arrowCounter"
                 [class.text-white]="$index === arrowCounter">
@@ -31,7 +31,7 @@
         } @empty {
             <li class="p-2 italic text-sm bg-gray-100">
                 @if (allowNew()) {
-                    Add new (e.g. type 'Banking')
+                    Add new
                 } @else {
                     No matches found
                 }
